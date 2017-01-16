@@ -183,11 +183,11 @@ class ControllerApiShipping extends Controller {
 				$results[] = array('code'=>'igstiki');
 				$results[] = array('code'=>'igsjne');
 				foreach ($results as $key => $result) {
-					if ($result['code']=='shindo') {
+					if ($result['code']=='shindopro') {
 						unset ($results[$key]);
 					}
 				}
-				
+
 				//----
 
 				foreach ($results as $result) {

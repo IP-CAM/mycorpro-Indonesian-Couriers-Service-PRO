@@ -17,7 +17,7 @@ class ControllerCheckoutShippingMethod extends Controller {
 				$results[] = array('code'=>'igsjne');
 			}
 			foreach ($results as $key => $result) {
-				if ($result['code']=='shindo') {
+				if ($result['code']=='shindopro') {
 					unset ($results[$key]);
 				}
 			}

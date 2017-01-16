@@ -214,7 +214,7 @@
 <script type="text/javascript"><!--
 $('select[name=\'shindopro_province_id\']').on('change', function() {
 $.ajax({
-  url: 'index.php?route=extension/shipping/shindo/cities&token=<?php echo $token; ?>&province_id=' + this.value,
+  url: 'index.php?route=extension/shipping/shindopro/cities&token=<?php echo $token; ?>&province_id=' + this.value,
   dataType: 'json',
   beforeSend: function() {
     $('select[name=\'shindopro_province_id\']').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
