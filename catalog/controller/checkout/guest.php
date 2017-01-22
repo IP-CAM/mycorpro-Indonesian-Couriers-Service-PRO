@@ -134,6 +134,14 @@ class ControllerCheckoutGuest extends Controller {
 		} else {
 			$data['district_id'] = '';
 		}
+		if (isset($this->session->data['payment_address']['subdistrict_id'])) {
+			$data['subdistrict_id'] = $this->session->data['payment_address']['subdistrict_id'];
+		} elseif (isset($this->session->data['shipping_address']['subdistrict_id'])) {
+			$data['subdistrict_id'] = $this->session->data['shipping_address']['subdistrict_id'];
+		} else {
+			$data['subdistrict_id'] = '';
+		}
+
 		//-------
 		$this->load->model('localisation/country');
 
@@ -242,7 +250,10 @@ class ControllerCheckoutGuest extends Controller {
 			}
 			//frd
 			if (!isset($this->request->post['district_id']) || $this->request->post['district_id'] == '' || !is_numeric($this->request->post['district_id'])) {
-				$json['error']['district'] = $this->language->get('district_zone');
+				$json['error']['district'] = $this->language->get('error_district');
+			}
+			if (!isset($this->request->post['subdistrict_id']) || $this->request->post['subdistrict_id'] == '' || !is_numeric($this->request->post['subdistrict_id'])) {
+				$json['error']['subdistrict'] = $this->language->get('error_subdistrict');
 			}
 			//------
 			// Customer Group
@@ -302,6 +313,7 @@ class ControllerCheckoutGuest extends Controller {
 			$this->session->data['payment_address']['zone_id'] = $this->request->post['zone_id'];
 			//frd
 			$this->session->data['payment_address']['district_id'] = $this->request->post['district_id'];
+			$this->session->data['payment_address']['subdistrict_id'] = $this->request->post['subdistrict_id'];
 			//----
 			$this->load->model('localisation/country');
 
@@ -338,7 +350,7 @@ class ControllerCheckoutGuest extends Controller {
 			}
 			//frd
 			$this->load->model('localisation/districtpro');
-			$district = $this->model_localisation_district->getDistrict($this->session->data['payment_address']['district_id']);
+			$district = $this->model_localisation_districtpro->getDistrict($this->session->data['payment_address']['district_id']);
 			if (isset($district['rajaongkir']['results']['city_name'])){
 				$this->session->data['payment_address']['district'] = $district['rajaongkir']['results']['city_name'] . ' - ' . $district['rajaongkir']['results']['type'];
 			} else {
@@ -364,6 +376,7 @@ class ControllerCheckoutGuest extends Controller {
 				$this->session->data['shipping_address']['zone_id'] = $this->request->post['zone_id'];
 				//frd
 				$this->session->data['shipping_address']['district_id'] = $this->request->post['district_id'];
+				$this->session->data['shipping_address']['subdistrict_id'] = $this->request->post['subdistrict_id'];
 				//---
 				if ($country_info) {
 					$this->session->data['shipping_address']['country'] = $country_info['name'];
@@ -387,7 +400,7 @@ class ControllerCheckoutGuest extends Controller {
 
 				//frd
 				$this->load->model('localisation/districtpro');
-				$district = $this->model_localisation_district->getDistrict($this->session->data['shipping_address']['district_id']);
+				$district = $this->model_localisation_districtpro->getDistrict($this->session->data['shipping_address']['district_id']);
 				if (isset($district['rajaongkir']['results']['city_name'])){
 					$this->session->data['shipping_address']['district'] = $district['rajaongkir']['results']['city_name'] . ' - ' . $district['rajaongkir']['results']['type'];
 				} else {

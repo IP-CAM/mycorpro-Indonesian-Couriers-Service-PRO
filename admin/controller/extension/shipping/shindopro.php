@@ -8,7 +8,7 @@ class ControllerExtensionShippingShindopro extends Controller {
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('setting/setting');
-		$mod = array('igsjnepro','igspospro','igstikipro');
+		$mod = array('igsjnepro','igspospro','igstikipro', 'igswahanapro', 'igsjntpro');
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 			$this->model_setting_setting->editSetting('shindopro', $this->request->post);
 			foreach ($mod as $m) {
@@ -43,6 +43,7 @@ class ControllerExtensionShippingShindopro extends Controller {
 
 		$data['entry_province'] = $this->language->get('entry_province');
 		$data['entry_city'] = $this->language->get('entry_city');
+		$data['entry_subdistrict'] = $this->language->get('entry_subdistrict');
 		$data['entry_tax_class'] = $this->language->get('entry_tax_class');
 		$data['entry_status'] = $this->language->get('entry_status');
 		$data['entry_weight_class'] =  $this->language->get('entry_weight_class');
@@ -97,6 +98,12 @@ class ControllerExtensionShippingShindopro extends Controller {
 			$data['shindopro_city_id'] = $this->request->post['shindopro_city_id'];
 		} else {
 			$data['shindopro_city_id'] = $this->config->get('shindopro_city_id');
+		}
+
+		if (isset($this->request->post['shindopro_subdistrict_id'])) {
+			$data['shindopro_subdistrict_id'] = $this->request->post['shindopro_subdistrict_id'];
+		} else {
+			$data['shindopro_subdistrict_id'] = $this->config->get('shindopro_subdistrict_id');
 		}
 
 		if (isset($this->request->post['shindopro_apikey'])) {
@@ -169,84 +176,86 @@ class ControllerExtensionShippingShindopro extends Controller {
 
 
 		}
-		$data['igsjne_services'] = array();
-		$data['igspos_services'] = array();
-		$data['igstiki_services'] = array();
+		$data['igsjnepro_services'] = array();
+		$data['igspospro_services'] = array();
+		$data['igstikipro_services'] = array();
+		$data['igswahanapro_services'] = array();
+		$data['igsjntpro_services'] = array();
 
-		$data['igsjne_services'][] = array(
+		$data['igsjnepro_services'][] = array(
 			'text'  => 'Ongkos Kirim Ekonomis',
 			'value' => 'OKE'
 		);
-		$data['igsjne_services'][] = array(
+		$data['igsjnepro_services'][] = array(
 			'text'  => 'Layanan Reguler',
 			'value' => 'REG'
 		);
-		$data['igsjne_services'][] = array(
+		$data['igsjnepro_services'][] = array(
 			'text'  => 'Yakin Esok Sampai',
 			'value' => 'YES'
 		);
-		$data['igsjne_services'][] = array(
+		$data['igsjnepro_services'][] = array(
 			'text'  => 'JNE Trucking',
 			'value' => 'JTR'
 		);
-		$data['igsjne_services'][] = array(
+		$data['igsjnepro_services'][] = array(
 			'text'  => 'Super Speed',
 			'value' => 'SPS'
 		);
-		$data['igsjne_services'][] = array(
+		$data['igsjnepro_services'][] = array(
 			'text'  => 'JNE Trucking',
 			'value' => 'JTR<150'
 		);
-		$data['igsjne_services'][] = array(
+		$data['igsjnepro_services'][] = array(
 			'text'  => 'JNE Trucking',
 			'value' => 'JTR>250'
 		);
-		$data['igsjne_services'][] = array(
+		$data['igsjnepro_services'][] = array(
 			'text'  => 'JNE Trucking',
 			'value' => 'JTR250'
 		);
 		//------
-		$data['igspos_services'][] = array(
+		$data['igspospro_services'][] = array(
 			'text'  => 'Surat Kilat Khusus',
 			'value' => 'Surat Kilat Khusus'
 		);
 
-		$data['igspos_services'][] = array(
+		$data['igspospro_services'][] = array(
 			'text'  => 'Express Next Day',
 			'value' => 'Express Next Day'
 		);
 
-		$data['igspos_services'][] = array(
+		$data['igspospro_services'][] = array(
 			'text'  => 'Paketpos Biasa',
 			'value' => 'Paketpos Biasa'
 		);
-		$data['igspos_services'][] = array(
+		$data['igspospro_services'][] = array(
 			'text'  => 'Paket Kilat Khusus',
 			'value' => 'Paket Kilat Khusus'
 		);
-		$data['igspos_services'][] = array(
+		$data['igspospro_services'][] = array(
 			'text'  => 'Paket Jumbo Ekonomi',
 			'value' => 'Paket Jumbo Ekonomi'
 		);
 
 		//----
-		$data['igstiki_services'][] = array(
+		$data['igstikipro_services'][] = array(
 			'text'  => 'REGULAR SERVICE',
 			'value' => 'REG'
 		);
-		$data['igstiki_services'][] = array(
+		$data['igstikipro_services'][] = array(
 			'text'  => 'ECONOMY SERVICE',
 			'value' => 'ECO'
 		);
-		$data['igstiki_services'][] = array(
+		$data['igstikipro_services'][] = array(
 			'text'  => 'OVER NIGHT SERVICE',
 			'value' => 'ONS'
 		);
-		$data['igstiki_services'][] = array(
+		$data['igstikipro_services'][] = array(
 			'text'  => 'SAMEDAY SERVICE',
 			'value' => 'SDS'
 		);
-		$data['igstiki_services'][] = array(
+		$data['igstikipro_services'][] = array(
 			'text'  => 'HOLIDAY SERVICE',
 			'value' => 'HDS'
 		);
@@ -275,6 +284,16 @@ class ControllerExtensionShippingShindopro extends Controller {
 		$this->load->model('extension/shipping/shindopro');
 
 		$json = $this->model_extension_shipping_shindopro->getCities($this->request->get['province_id']);
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	public function subdistricts() {
+		$json = array();
+
+		$this->load->model('extension/shipping/shindopro');
+
+		$json = $this->model_extension_shipping_shindopro->getSubdistricts($this->request->get['city_id']);
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}

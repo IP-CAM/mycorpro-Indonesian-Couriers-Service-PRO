@@ -281,10 +281,19 @@ class ControllerAccountRegister extends Controller {
 		if (isset($this->request->post['district_id'])) {
 			$data['district_id'] = (int)$this->request->post['district_id'];
 		} elseif (isset($this->session->data['shipping_address']['district_id'])) {
-			$data['zone_id'] = $this->session->data['shipping_address']['district_id'];
+			$data['district_id'] = $this->session->data['shipping_address']['district_id'];
 		} else {
 			$data['district_id'] = '';
 		}
+		
+		if (isset($this->request->post['subdistrict_id'])) {
+			$data['subdistrict_id'] = (int)$this->request->post['subdistrict_id'];
+		} elseif (isset($this->session->data['shipping_address']['subdistrict_id'])) {
+			$data['subdistrict_id'] = $this->session->data['shipping_address']['subdistrict_id'];
+		} else {
+			$data['subdistrict_id'] = '';
+		}
+
 		//------
 
 		$this->load->model('localisation/country');

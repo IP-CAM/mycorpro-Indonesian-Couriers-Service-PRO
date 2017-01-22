@@ -15,6 +15,7 @@ class ControllerExtensionTotalShipping extends Controller {
 			$data['entry_country'] = $this->language->get('entry_country');
 			$data['entry_zone'] = $this->language->get('entry_zone');
 			$data['entry_district'] = $this->language->get('entry_district');//frd
+			$data['entry_subdistrict'] = $this->language->get('entry_subdistrict');//frd
 			$data['entry_postcode'] = $this->language->get('entry_postcode');
 
 			$data['button_quote'] = $this->language->get('button_quote');
@@ -42,6 +43,12 @@ class ControllerExtensionTotalShipping extends Controller {
 			} else {
 				$data['district_id'] = '';
 			}
+			if (isset($this->session->data['shipping_address']['subdistrict_id'])) {
+				$data['subdistrict_id'] =  $this->session->data['shipping_address']['subdistrict_id'];
+			} else {
+				$data['subdistrict_id'] = '';
+			}
+
 			//------
 
 			if (isset($this->session->data['shipping_address']['postcode'])) {
@@ -126,6 +133,7 @@ class ControllerExtensionTotalShipping extends Controller {
 				'city'           => '',
 				'zone_id'        => $this->request->post['zone_id'],
 				'district_id'    => $this->request->post['district_id'],//frd
+				'subdistrict_id' => $this->request->post['subdistrict_id'],//frd
 				'zone'           => $zone,
 				'zone_code'      => $zone_code,
 				'country_id'     => $this->request->post['country_id'],
@@ -136,7 +144,8 @@ class ControllerExtensionTotalShipping extends Controller {
 			);
 			//frd
 			$this->load->model('localisation/districtpro');
-			$district = $this->model_localisation_district->getDistrict($this->session->data['shipping_address']['district_id']);
+			$district = $this->model_localisation_districtpro->getDistrict($this->session->data['shipping_address']['district_id']);
+			//print_r($district);
 			if (isset($district['rajaongkir']['results']['city_name'])){
 				$this->session->data['shipping_address']['district'] = $district['rajaongkir']['results']['city_name'] . ' - ' . $district['rajaongkir']['results']['type'];
 			} else {
@@ -150,16 +159,17 @@ class ControllerExtensionTotalShipping extends Controller {
 
 			$results = $this->model_extension_extension->getExtensions('shipping');
 			//frd
-			if ($this->config->get('shindo_status')==true) {
-				$results[] = array('code'=>'igspos');
-				$results[] = array('code'=>'igstiki');
-				$results[] = array('code'=>'igsjne');
+			if ($this->config->get('shindopro_status')==true) {
+				$results[] = array('code'=>'igspospro');
+				$results[] = array('code'=>'igstikipro');
+				$results[] = array('code'=>'igsjnepro');
 			}
 			foreach ($results as $key => $result) {
 				if ($result['code']=='shindopro') {
 					unset ($results[$key]);
 				}
 			}
+			//print_r($results);
 			//----
 
 			foreach ($results as $result) {

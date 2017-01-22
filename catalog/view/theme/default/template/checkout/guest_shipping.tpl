@@ -79,6 +79,17 @@
       <?php } ?>-->
     </div>
   </div>
+  <div class="form-group required">
+    <label class="col-sm-2 control-label" for="input-shipping-subdistrict"><?php echo $entry_subdistrict; ?></label>
+    <div class="col-sm-10">
+      <select name="subdistrict_id" id="input-shipping-subdistrict" class="form-control">
+      </select>
+      <!--<?php if ($error_district) { ?>
+      <div class="text-danger"><?php echo $error_district; ?></div>
+      <?php } ?>-->
+    </div>
+  </div>
+
   <!---->
 
   <?php foreach ($custom_fields as $custom_field) { ?>

@@ -95,9 +95,9 @@
     </div>
     <!--frd-->
     <div class="form-group required">
-      <label class="col-sm-2 control-label" for="input-payment-district"><?php echo $entry_district; ?></label>
+      <label class="col-sm-2 control-label" for="input-shipping-district"><?php echo $entry_district; ?></label>
       <div class="col-sm-10">
-        <select name="district_id" id="input-payment-district" class="form-control">
+        <select name="district_id" id="input-shipping-district" class="form-control">
           <?php if (!empty($district_id)) {?>
           <option value="<?php echo $district_id; ?>"></option>
           <?php } ?>
@@ -107,6 +107,14 @@
         <?php } ?>-->
       </div>
     </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="input-shipping-subdistrict"><?php echo $entry_subdistrict; ?></label>
+      <div class="col-sm-10">
+        <select name="subdistrict_id" id="input-shipping-subdistrict" class="form-control">
+        </select>
+      </div>
+    </div>
+
     <!---->
 
     <?php foreach ($custom_fields as $custom_field) { ?>

@@ -80,6 +80,11 @@ class ControllerCheckoutGuestShipping extends Controller {
 		} else {
 			$data['district_id'] = '';
 		}
+		if (isset($this->session->data['shipping_address']['subdistrict_id'])) {
+			$data['subdistrict_id'] = $this->session->data['shipping_address']['subdistrict_id'];
+		} else {
+			$data['subdistrict_id'] = '';
+		}
 		//---
 		$this->load->model('localisation/country');
 
@@ -154,7 +159,10 @@ class ControllerCheckoutGuestShipping extends Controller {
 
 			//frd
 			if (!isset($this->request->post['district_id']) || $this->request->post['district_id'] == '' || !is_numeric($this->request->post['district_id'])) {
-				$json['district']['zone'] = $this->language->get('district_zone');
+				$json['error']['district'] = $this->language->get('error_district');
+			}
+			if (!isset($this->request->post['subdistrict_id']) || $this->request->post['district_id'] == '' || !is_numeric($this->request->post['subdistrict_id'])) {
+				$json['error']['subdistrict'] = $this->language->get('error_subdistrict');
 			}
 			//---
 			// Custom field validation
@@ -182,6 +190,7 @@ class ControllerCheckoutGuestShipping extends Controller {
 			$this->session->data['shipping_address']['country_id'] = $this->request->post['country_id'];
 			$this->session->data['shipping_address']['zone_id'] = $this->request->post['zone_id'];
 			$this->session->data['shipping_address']['district_id'] = $this->request->post['district_id'];//frd
+			$this->session->data['shipping_address']['subdistrict_id'] = $this->request->post['subdistrict_id'];//frd
 
 			$this->load->model('localisation/country');
 
@@ -212,7 +221,7 @@ class ControllerCheckoutGuestShipping extends Controller {
 			}
 			//frd
 			$this->load->model('localisation/districtpro');
-			$district = $this->model_localisation_district->getDistrict($this->session->data['shipping_address']['district_id']);
+			$district = $this->model_localisation_districtpro->getDistrict($this->session->data['shipping_address']['district_id']);
 			if (isset($district['rajaongkir']['results']['city_name'])){
 				$this->session->data['shipping_address']['district'] = $district['rajaongkir']['results']['city_name'] . ' - ' . $district['rajaongkir']['results']['type'];
 			} else {

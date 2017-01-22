@@ -118,6 +118,7 @@ class ControllerApiPayment extends Controller {
 					'zone_id'        => $this->request->post['zone_id'],
 					'zone'           => $zone,
 					'district_id'    => $this->request->post['district_id'], //frd
+					'subdistrict_id'    => $this->request->post['subdistrict_id'], //frd
 					'zone_code'      => $zone_code,
 					'country_id'     => $this->request->post['country_id'],
 					'country'        => $country,
@@ -128,7 +129,7 @@ class ControllerApiPayment extends Controller {
 				);
 				//frd
 				$this->load->model('localisation/districtpro');
-				$district = $this->model_localisation_district->getDistrict($this->session->data['payment_address']['district_id']);
+				$district = $this->model_localisation_districtpro->getDistrict($this->session->data['payment_address']['district_id']);
 				if (isset($district['rajaongkir']['results']['city_name'])){
 					$this->session->data['payment_address']['district'] = $district['rajaongkir']['results']['city_name'] . ' - ' . $district['rajaongkir']['results']['type'];
 				} else {

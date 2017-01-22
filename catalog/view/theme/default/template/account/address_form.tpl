@@ -119,6 +119,17 @@
               <?php } ?>
             </div>
           </div>
+          <div class="form-group required">
+            <label class="col-sm-2 control-label" for="input-subdistrict"><?php echo $entry_subdistrict; ?></label>
+            <div class="col-sm-10">
+              <select name="subdistrict_id" id="input-subdistrict" class="form-control">
+              </select>
+              <?php if ($error_subdistrict) { ?>
+              <div class="text-danger"><?php echo $error_subdistrict; ?></div>
+              <?php } ?>
+            </div>
+          </div>
+
           <!------>
 
           <?php foreach ($custom_fields as $custom_field) { ?>

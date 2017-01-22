@@ -27,7 +27,7 @@
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data" id="form-weight" class="form-horizontal">
           <div class="row">
             <div class="col-sm-2">
-              <?php $mod = array('igsjne', 'igspos','igstiki');?>
+              <?php $mod = array('igsjnepro', 'igspospro','igstikipro', 'igswahanapro', 'igsjntpro');?>
               <ul class="nav nav-pills nav-stacked">
                 <li class="active"><a href="#tab-general" data-toggle="tab"><?php echo $tab_general; ?></a></li>
                 <?php foreach ($mod as $m) {?>
@@ -38,7 +38,7 @@
             <div class="col-sm-10">
               <div class="tab-content">
                 <div class="tab-pane active" id="tab-general">
-                  <div class="form-group">
+                  <div class="form-group required">
                     <label class="col-sm-2 control-label" for="input-shindopro-status"><?php echo $entry_status; ?></label>
                     <div class="col-sm-10">
                       <select name="shindopro_status" id="input-shindopro-status" class="form-control">
@@ -52,7 +52,7 @@
                       </select>
                     </div>
                   </div>
-                  <div class="form-group">
+                  <div class="form-group required">
                     <label class="col-sm-2 control-label" for="input-apikey"><?php echo $entry_apikey; ?></label>
                     <div class="col-sm-10">
                         <input type="text" name="shindopro_apikey" value="<?php echo $shindopro_apikey; ?>" placeholder="<?php echo $entry_apikey; ?>" id="input-apikey" class="form-control" />
@@ -77,6 +77,12 @@
                   <label class="col-sm-2 control-label" for="input-city"><?php echo $entry_city; ?></label>
                   <div class="col-sm-10">
                     <select name="shindopro_city_id" id="input-city" class="form-control">
+                      <!--frd-->
+                      <?php if (!empty($city_id)) {?>
+                      <option value="<?php echo $city_id; ?>"></option>
+                      <?php } ?>
+                      <!---->
+
                     </select>
                   </div>
                 </div>
@@ -238,6 +244,7 @@ $.ajax({
     } else {
       html += '<option value="0" selected="selected"><?php echo $text_none; ?></option>';
     }
+    $('select[name=\'shindopro_subdistrict_id\']').html('<option value=""><?php echo $text_select; ?></option>');
 
     $('select[name=\'shindopro_city_id\']').html(html);
 
@@ -250,6 +257,10 @@ $.ajax({
 });
 
 $('select[name=\'shindopro_province_id\']').trigger('change');
+
+
+
 //--></script>
+
 </div>
 <?php echo $footer; ?>

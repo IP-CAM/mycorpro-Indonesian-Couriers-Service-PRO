@@ -5,17 +5,21 @@ $_['heading_title']    = 'Indonesian Couriers Service PRO';
 // Text
 $_['text_shipping']    = 'Shipping';
 $_['text_success']     = 'Success: You have modified Indonesian Couriers Service PRO!';
-$_['text_edit']        = 'Edit Indonesian Couriers Service';
+$_['text_edit']        = 'Edit Indonesian Couriers Service PRO';
 $_['text_extension']   = 'Extensions';
 // Entry
-$_['tab_igstiki']       = 'TIKI';
-$_['tab_igspos']  = 'POS Indonesia';
-$_['tab_igsjne']   = 'JNE';
+$_['tab_igstikipro']       = 'TIKI';
+$_['tab_igspospro']  = 'POS Indonesia';
+$_['tab_igsjnepro']   = 'JNE';
+$_['tab_igswahanapro']   = 'Wahana';
+$_['tab_igsjntpro']   = 'J & T';
 
 $_['entry_service']       = 'Services';
 $_['entry_apikey']       = 'API Key';
 $_['entry_province']  = 'Origin Province';
-$_['entry_city']   = 'Origin City';
+$_['entry_city']   = 'Origin City/District';
+$_['entry_subdistrict']   = 'Origin Sub District';
+
 $_['entry_handling']     = 'Handling Fee (Rp)';
 $_['entry_handlingmode']     = 'Handling Fee Mode';
 $_['entry_status']     = 'Status';
