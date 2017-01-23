@@ -19,6 +19,7 @@ class ControllerCheckoutShippingAddress extends Controller {
 		$data['entry_country'] = $this->language->get('entry_country');
 		$data['entry_zone'] = $this->language->get('entry_zone');
 		$data['entry_district'] = $this->language->get('entry_district');//frd
+		$data['entry_subdistrict'] = $this->language->get('entry_subdistrict');//frd
 
 		$data['button_continue'] = $this->language->get('button_continue');
 		$data['button_upload'] = $this->language->get('button_upload');
@@ -144,6 +145,14 @@ class ControllerCheckoutShippingAddress extends Controller {
 					} else {
 						$this->session->data['shipping_address']['district'] = '';
 					}
+					$this->load->model('localisation/subdistrictpro');
+					$subdistrict = $this->model_localisation_subdistrictpro->getSubdistrict($this->session->data['shipping_address']['subdistrict_id']);
+					if (isset($subdistrict['rajaongkir']['results']['subdistrict_name'])){
+						$this->session->data['shipping_address']['subdistrict'] = $subdistrict['rajaongkir']['results']['subdistrict_name'];
+					} else {
+						$this->session->data['shipping_address']['subdistrict'] = '';
+					}
+
 					//---
 					unset($this->session->data['shipping_method']);
 					unset($this->session->data['shipping_methods']);

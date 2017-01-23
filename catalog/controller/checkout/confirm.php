@@ -210,6 +210,8 @@ class ControllerCheckoutConfirm extends Controller {
 				$order_data['shipping_zone_id'] = '';
 				$order_data['shipping_district'] = '';//frd
 				$order_data['shipping_district_id'] = '';//frd
+				$order_data['shipping_subdistrict'] = '';//frd
+				$order_data['shipping_subdistrict_id'] = '';//frd
 				$order_data['shipping_country'] = '';
 				$order_data['shipping_country_id'] = '';
 				$order_data['shipping_address_format'] = '';

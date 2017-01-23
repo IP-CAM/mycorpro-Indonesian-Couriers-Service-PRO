@@ -145,12 +145,20 @@ class ControllerExtensionTotalShipping extends Controller {
 			//frd
 			$this->load->model('localisation/districtpro');
 			$district = $this->model_localisation_districtpro->getDistrict($this->session->data['shipping_address']['district_id']);
-			//print_r($district);
 			if (isset($district['rajaongkir']['results']['city_name'])){
 				$this->session->data['shipping_address']['district'] = $district['rajaongkir']['results']['city_name'] . ' - ' . $district['rajaongkir']['results']['type'];
 			} else {
 				$this->session->data['shipping_address']['district'] = '';
 			}
+
+			$this->load->model('localisation/subdistrictpro');
+			$subdistrict = $this->model_localisation_subdistrictpro->getSubdistrict($this->session->data['shipping_address']['subdistrict_id']);
+			if (isset($subdistrict['rajaongkir']['results']['subdistrict_name'])){
+				$this->session->data['shipping_address']['subdistrict'] = $subdistrict['rajaongkir']['results']['subdistrict_name'];
+			} else {
+				$this->session->data['shipping_address']['subdistrict'] = '';
+			}
+
 			//---
 
 			$quote_data = array();
@@ -169,15 +177,11 @@ class ControllerExtensionTotalShipping extends Controller {
 					unset ($results[$key]);
 				}
 			}
-			//print_r($results);
 			//----
-
 			foreach ($results as $result) {
 				if ($this->config->get($result['code'] . '_status')) {
 					$this->load->model('extension/shipping/' . $result['code']);
-
 					$quote = $this->{'model_extension_shipping_' . $result['code']}->getQuote($this->session->data['shipping_address']);
-
 					if ($quote) {
 						$quote_data[$result['code']] = array(
 							'title'      => $quote['title'],

@@ -2,7 +2,6 @@
 ini_set('display_errors',1);
 class ModelExtensionShippingIgsjnepro extends Model {
 	function getQuote($address) {
-		//print_r($address);
 		$classname = str_replace('vq2-catalog_model_shipping_', '', basename(__FILE__, '.php'));
 		$this->load->language('extension/shipping/' . $classname);
 		$title = $this->language->get('text_title');
@@ -54,13 +53,11 @@ class ModelExtensionShippingIgsjnepro extends Model {
 					$destId = $address['subdistrict_id'];
 					$destType = 'subdistrict';
 			}
-			//print_r('dddddddd');
 			$key = $this->config->get('shindopro_apikey');
-			if ($destType) {
-
-				$json = $this->getCost($origin_id, $dest_id, $shipping_weight, $key, $destType);
+			if (isset($destType)) {
+				$json = $this->getCost($origin_id, $destId, $shipping_weight, $key, $destType);
 			} else {
-				$json = $this->getCost($origin_id, $dest_id, $shipping_weight, $key);
+				$json = $this->getCost($origin_id, $destId, $shipping_weight, $key);
 			}
 			$quote_data = array();
 			if (isset($json['rajaongkir']) && isset($json['rajaongkir']['results']) && isset($json['rajaongkir']['results'][0]) && isset($json['rajaongkir']['results'][0]['costs'])) {
@@ -123,7 +120,7 @@ class ModelExtensionShippingIgsjnepro extends Model {
 		return $method_data;
 	}
 
-	public function getCost($origin, $destination, $weight, $key, $destType='district') {
+	public function getCost($origin, $destination, $weight, $key, $destType='city') {
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 		  CURLOPT_URL => "http://pro.rajaongkir.com/api/cost",

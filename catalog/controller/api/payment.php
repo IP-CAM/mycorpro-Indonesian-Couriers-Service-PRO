@@ -135,6 +135,14 @@ class ControllerApiPayment extends Controller {
 				} else {
 					$this->session->data['payment_address']['district'] = '';
 				}
+				$this->load->model('localisation/subdistrictpro');
+				$subdistrict = $this->model_localisation_subdistrictpro->getSubdistrict($this->session->data['payment_address']['subdistrict_id']);
+				if (isset($subdistrict['rajaongkir']['results']['subdistrict_name'])){
+					$this->session->data['payment_address']['subdistrict'] = $subdistrict['rajaongkir']['results']['subdistrict_name'];
+				} else {
+					$this->session->data['payment_address']['subdistrict'] = '';
+				}
+
 				//---
 
 				$json['success'] = $this->language->get('text_address');

@@ -78,7 +78,7 @@ $('#button-quote').on('click', function() {
 		type: 'post',
 		//data: 'country_id=' + $('select[name=\'country_id\']').val() + '&zone_id=' + $('select[name=\'zone_id\']').val() + '&postcode=' + encodeURIComponent($('input[name=\'postcode\']').val()),
     /*frd*/
-    data: 'country_id=' + $('select[name=\'country_id\']').val() + '&zone_id=' + $('select[name=\'zone_id\']').val() + '&postcode=' + encodeURIComponent($('input[name=\'postcode\']').val()) + '&district_id=' + $('select[name=\'district_id\']').val(),
+    data: 'country_id=' + $('select[name=\'country_id\']').val() + '&zone_id=' + $('select[name=\'zone_id\']').val() + '&postcode=' + encodeURIComponent($('input[name=\'postcode\']').val()) + '&district_id=' + $('select[name=\'district_id\']').val() + '&subdistrict_id=' + $('select[name=\'subdistrict_id\']').val(),
 
 		dataType: 'json',
 		beforeSend: function() {
@@ -243,8 +243,11 @@ $('select[name=\'country_id\']').on('change', function() {
 			} else {
 				html += '<option value="0" selected="selected"><?php echo $text_none; ?></option>';
 			}
-
 			$('select[name=\'zone_id\']').html(html);
+      /*frd*/
+      $('select[name=\'district_id\']').html('<option value=""><?php echo $text_select; ?></option>');
+      $('select[name=\'subdistrict_id\']').html('<option value=""><?php echo $text_select; ?></option>');
+      /*frd*/
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -265,6 +268,7 @@ $('select[name=\'zone_id\']').on('change', function() {
 		},
 		complete: function() {
 			$('.fa-spin').remove();
+
 		},
 		success: function(json) {
 
@@ -284,8 +288,8 @@ $('select[name=\'zone_id\']').on('change', function() {
 			} else {
 				/*html += '<option value="0" selected="selected"><?php echo $text_none; ?></option>';*/
 			}
-
-			$('select[name=\'district_id\']').html(html);
+      $('select[name=\'district_id\']').html(html);
+      $('select[name=\'subdistrict_id\']').html('<option value=""><?php echo $text_select; ?></option>');
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -293,6 +297,50 @@ $('select[name=\'zone_id\']').on('change', function() {
 	});
 });
 $('select[name=\'zone_id\']').trigger('change');
+
+/*---*/
+
+$('select[name=\'district_id\']').on('change', function() {
+  $.ajax({
+    url: 'index.php?route=account/account/district&district_id=' + this.value,
+    dataType: 'json',
+    beforeSend: function() {
+      $('select[name=\'district_id\']').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
+    },
+    complete: function() {
+      $('.fa-spin').remove();
+    },
+    success: function(json) {
+
+      html = '<option value=""><?php echo $text_select; ?></option>';
+
+      if (json['subdistricts'] && json['subdistricts']['rajaongkir']['results'] != '') {
+
+        for (i = 0; i < json['subdistricts']['rajaongkir']['results'].length; i++) {
+          html += '<option value="' + json['subdistricts']['rajaongkir']['results'][i]['subdistrict_id'] + '"';
+
+          if (json['subdistricts']['rajaongkir']['results'][i]['subdistrict_id'] == '<?php echo $subdistrict_id; ?>') {
+            html += ' selected="selected"';
+          }
+
+            html += '>' + json['subdistricts']['rajaongkir']['results'][i]['subdistrict_name'] +  '</option>';
+        }
+      } else {
+        /*html += '<option value="0" selected="selected"><?php echo $text_none; ?></option>';*/
+      }
+
+      $('select[name=\'subdistrict_id\']').html(html);
+      /*$('[name=\'postcode\']').val('ddddd');*/
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+      alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    }
+  });
+});
+$('select[name=\'district_id\']').trigger('change');
+
+/*---*/
+
 //--></script>
 
     </div>

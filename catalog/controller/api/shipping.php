@@ -134,6 +134,14 @@ class ControllerApiShipping extends Controller {
 					} else {
 						$this->session->data['shipping_address']['district'] = '';
 					}
+					$this->load->model('localisation/subdistrictpro');
+					$subdistrict = $this->model_localisation_subdistrictpro->getSubdistrict($this->session->data['shipping_address']['subdistrict_id']);
+					if (isset($subdistrict['rajaongkir']['results']['subdistrict_name'])){
+						$this->session->data['shipping_address']['subdistrict'] = $subdistrict['rajaongkir']['results']['subdistrict_name'];
+					} else {
+						$this->session->data['shipping_address']['subdistrict'] = '';
+					}
+
 					//---
 
 
