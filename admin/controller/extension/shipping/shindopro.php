@@ -259,6 +259,16 @@ class ControllerExtensionShippingShindopro extends Controller {
 			'text'  => 'HOLIDAY SERVICE',
 			'value' => 'HDS'
 		);
+		//----
+		$data['igswahanapro_services'][] = array(
+			'text'  => 'Domestic Express Service',
+			'value' => 'DES'
+		);
+		//----
+		$data['igsjntpro_services'][] = array(
+			'text'  => 'Regular Service',
+			'value' => 'EZ'
+		);
 
 
 		$data['token'] = $this->session->data['token'];

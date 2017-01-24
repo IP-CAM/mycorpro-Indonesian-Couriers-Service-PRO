@@ -49,9 +49,17 @@ class ModelExtensionShippingIgspospro extends Model {
 				return $method_data;
 			}
 			$origin_id = $this->config->get('shindopro_city_id');
-			$district_id = $address['district_id'];
+			$destId = $address['district_id'];
+			if ($address['subdistrict_id']) {
+					$destId = $address['subdistrict_id'];
+					$destType = 'subdistrict';
+			}
 			$key = $this->config->get('shindopro_apikey');
-			$json = $this->getCost($origin_id, $district_id, $shipping_weight, $key);
+			if (isset($destType)) {
+				$json = $this->getCost($origin_id, $destId, $shipping_weight, $key, $destType);
+			} else {
+				$json = $this->getCost($origin_id, $destId, $shipping_weight, $key);
+			}
 			$quote_data = array();
 			if (isset($json['rajaongkir']) && isset($json['rajaongkir']['results']) && isset($json['rajaongkir']['results'][0]) && isset($json['rajaongkir']['results'][0]['costs'])) {
 				foreach ($json['rajaongkir']['results'][0]['costs'] as $res) {
@@ -112,17 +120,17 @@ class ModelExtensionShippingIgspospro extends Model {
 		return $method_data;
 	}
 
-	public function getCost($origin, $destination, $weight, $key) {
+	public function getCost($origin, $destination, $weight, $key, $destType='city') {
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
-		  CURLOPT_URL => "http://api.rajaongkir.com/starter/cost",
+			CURLOPT_URL => "http://pro.rajaongkir.com/api/cost",
 		  CURLOPT_RETURNTRANSFER => true,
 		  CURLOPT_ENCODING => "",
 		  CURLOPT_MAXREDIRS => 10,
 		  CURLOPT_TIMEOUT => 30,
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => "POST",
-		  CURLOPT_POSTFIELDS => "origin=" . (int)$origin . "&destination=" . (int)$destination . "&weight=" . (int)$weight ."&courier=pos",
+			CURLOPT_POSTFIELDS => "origin=" . (int)$origin . "&originType=city&destination=" . (int)$destination . "&destinationType=" . $destType . "&weight=" . (int)$weight ."&courier=pos",
 		  CURLOPT_HTTPHEADER => array(
 				"content-type: application/x-www-form-urlencoded",
 				"key: " . $key,

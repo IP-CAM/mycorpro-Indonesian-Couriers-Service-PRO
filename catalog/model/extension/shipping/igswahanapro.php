@@ -1,6 +1,6 @@
 <?php
 ini_set('display_errors',1);
-class ModelExtensionShippingIgstikipro extends Model {
+class ModelExtensionShippingIgswahanapro extends Model {
 	function getQuote($address) {
 		$classname = str_replace('vq2-catalog_model_shipping_', '', basename(__FILE__, '.php'));
 		$this->load->language('extension/shipping/' . $classname);
@@ -85,7 +85,7 @@ class ModelExtensionShippingIgstikipro extends Model {
 						}
 						$quote_data[$res['service']] = array(
 							'code'         => $classname . '.' . $res['service'],
-							'title'        => 'TIKI - '. $res['service'],// . $etd,
+							'title'        => 'Wahana - '. $res['service'],// . $etd,
 							'cost'         => $cost,
 							'tax_class_id' => $this->config->get($classname.'_tax_class_id'),
 							'text'         => $this->currency->format($this->tax->calculate($cost, $this->config->get($classname.'_tax_class_id'), $this->config->get('config_tax')), $this->session->data['currency']),
@@ -128,7 +128,7 @@ class ModelExtensionShippingIgstikipro extends Model {
 		  CURLOPT_TIMEOUT => 30,
 		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 		  CURLOPT_CUSTOMREQUEST => "POST",
-			CURLOPT_POSTFIELDS => "origin=" . (int)$origin . "&originType=city&destination=" . (int)$destination . "&destinationType=" . $destType . "&weight=" . (int)$weight ."&courier=tiki",
+			CURLOPT_POSTFIELDS => "origin=" . (int)$origin . "&originType=city&destination=" . (int)$destination . "&destinationType=" . $destType . "&weight=" . (int)$weight ."&courier=wahana",
 		  CURLOPT_HTTPHEADER => array(
 				"content-type: application/x-www-form-urlencoded",
 				"key: " . $key,

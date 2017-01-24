@@ -171,6 +171,8 @@ class ControllerExtensionTotalShipping extends Controller {
 				$results[] = array('code'=>'igspospro');
 				$results[] = array('code'=>'igstikipro');
 				$results[] = array('code'=>'igsjnepro');
+				$results[] = array('code'=>'igswahanapro');
+				$results[] = array('code'=>'igsjntpro');
 			}
 			foreach ($results as $key => $result) {
 				if ($result['code']=='shindopro') {
