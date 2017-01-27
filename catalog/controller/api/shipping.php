@@ -188,9 +188,11 @@ class ControllerApiShipping extends Controller {
 
 				$results = $this->model_extension_extension->getExtensions('shipping');
 				//frd
-				$results[] = array('code'=>'igspos');
-				$results[] = array('code'=>'igstiki');
-				$results[] = array('code'=>'igsjne');
+				$results[] = array('code'=>'igspospro');
+				$results[] = array('code'=>'igstikipro');
+				$results[] = array('code'=>'igsjnepro');
+				$results[] = array('code'=>'igswahanapro');
+				$results[] = array('code'=>'igsjntpro');
 				foreach ($results as $key => $result) {
 					if ($result['code']=='shindopro') {
 						unset ($results[$key]);

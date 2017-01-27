@@ -366,6 +366,11 @@ $('#collapse-shipping-address select[name=\'country_id\']').on('change', functio
 			}
 
 			$('#collapse-shipping-address select[name=\'zone_id\']').html(html);
+      /*frd*/
+      $('#collapse-shipping-address select[name=\'district_id\']').html('<option value=""><?php echo $text_select; ?></option>');
+      $('#collapse-shipping-address select[name=\'subdistrict_id\']').html('<option value=""><?php echo $text_select; ?></option>');
+      /*frd*/
+
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -378,12 +383,12 @@ $('#collapse-shipping-address select[name=\'country_id\']').trigger('change');
 
 <!--frd-->
 <script type="text/javascript"><!--
-$('select[name=\'zone_id\']').on('change', function() {
+$('#collapse-shipping-address select[name=\'zone_id\']').on('change', function() {
 	$.ajax({
-		url: 'index.php?route=account/account/zone&zone_id=' + this.value,
+		url: 'index.php?route=checkout/checkout/zone&zone_id=' + this.value,
 		dataType: 'json',
 		beforeSend: function() {
-			$('select[name=\'zone_id\']').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
+			$('#collapse-shipping-address select[name=\'zone_id\']').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
 		},
 		complete: function() {
 			$('.fa-spin').remove();
@@ -407,12 +412,50 @@ $('select[name=\'zone_id\']').on('change', function() {
 				/*html += '<option value="0" selected="selected"><?php echo $text_none; ?></option>';*/
 			}
 
-			$('select[name=\'district_id\']').html(html);
+			$('#collapse-shipping-address select[name=\'district_id\']').html(html);
+      $('#collapse-shipping-address select[name=\'subdistrict_id\']').html('<option value=""><?php echo $text_select; ?></option>');
+
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
 	});
 });
-$('select[name=\'zone_id\']').trigger('change');
+$('#collapse-shipping-address select[name=\'zone_id\']').trigger('change');
+/*---*/
+$('#collapse-shipping-address select[name=\'district_id\']').on('change', function() {
+  $.ajax({
+    url: 'index.php?route=checkout/checkout/district&district_id=' + this.value,
+    dataType: 'json',
+    beforeSend: function() {
+      $('#collapse-shipping-address select[name=\'district_id\']').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
+    },
+    complete: function() {
+      $('.fa-spin').remove();
+    },
+    success: function(json) {
+      html = '<option value=""><?php echo $text_select; ?></option>';
+      if (json['subdistricts'] && json['subdistricts']['rajaongkir']['results'] != '') {
+        for (i = 0; i < json['subdistricts']['rajaongkir']['results'].length; i++) {
+          html += '<option value="' + json['subdistricts']['rajaongkir']['results'][i]['subdistrict_id'] + '"';
+          if (json['subdistricts']['rajaongkir']['results'][i]['subdistrict_id'] == '<?php echo $subdistrict_id; ?>') {
+            html += ' selected="selected"';
+          }
+          html += '>' + json['subdistricts']['rajaongkir']['results'][i]['subdistrict_name'] +  '</option>';
+        }
+      } else {
+        /*html += '<option value="0" selected="selected"><?php echo $text_none; ?></option>';*/
+      }
+
+      $('#collapse-shipping-address select[name=\'subdistrict_id\']').html(html);
+    },
+    error: function(xhr, ajaxOptions, thrownError) {
+      alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    }
+  });
+});
+$('#collapse-shipping-address select[name=\'district_id\']').trigger('change');
+
+/*---*/
+
 //--></script>

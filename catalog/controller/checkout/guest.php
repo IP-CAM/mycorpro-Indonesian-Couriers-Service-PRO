@@ -24,6 +24,7 @@ class ControllerCheckoutGuest extends Controller {
 		$data['entry_country'] = $this->language->get('entry_country');
 		$data['entry_zone'] = $this->language->get('entry_zone');
 		$data['entry_district'] = $this->language->get('entry_district');//frd
+		$data['entry_subdistrict'] = $this->language->get('entry_subdistrict');//frd
 		$data['entry_shipping'] = $this->language->get('entry_shipping');
 
 		$data['button_continue'] = $this->language->get('button_continue');

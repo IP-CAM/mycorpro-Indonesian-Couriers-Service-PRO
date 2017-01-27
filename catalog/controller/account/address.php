@@ -89,6 +89,14 @@ class ControllerAccountAddress extends Controller {
 				} else {
 					$this->session->data['shipping_address']['district'] = '';
 				}
+				$this->load->model('localisation/subdistrictpro');
+				$subdistrict = $this->model_localisation_subdistrictpro->getSubdistrict($this->session->data['shipping_address']['subdistrict_id']);
+				if (isset($subdistrict['rajaongkir']['results']['subdistrict_name'])){
+					$this->session->data['shipping_address']['subdistrict'] = $subdistrict['rajaongkir']['results']['subdistrict_name'];
+				} else {
+					$this->session->data['shipping_address']['subdistrict'] = '';
+				}
+
 				//---
 
 				unset($this->session->data['shipping_method']);
@@ -105,6 +113,13 @@ class ControllerAccountAddress extends Controller {
 					$this->session->data['payment_address']['district'] = $district['rajaongkir']['results']['city_name'] . ' - ' . $district['rajaongkir']['results']['type'];
 				} else {
 					$this->session->data['payment_address']['district'] = '';
+				}
+				$this->load->model('localisation/subdistrictpro');
+				$subdistrict = $this->model_localisation_subdistrictpro->getSubdistrict($this->session->data['payment_address']['subdistrict_id']);
+				if (isset($subdistrict['rajaongkir']['results']['subdistrict_name'])){
+					$this->session->data['payment_address']['subdistrict'] = $subdistrict['rajaongkir']['results']['subdistrict_name'];
+				} else {
+					$this->session->data['payment_address']['subdistrict'] = '';
 				}
 				//---
 
@@ -329,6 +344,7 @@ class ControllerAccountAddress extends Controller {
 		$data['entry_country'] = $this->language->get('entry_country');
 		$data['entry_zone'] = $this->language->get('entry_zone');
 		$data['entry_district'] = $this->language->get('entry_district');//frd
+		$data['entry_subdistrict'] = $this->language->get('entry_subdistrict');//frd
 		$data['entry_default'] = $this->language->get('entry_default');
 
 		$data['button_continue'] = $this->language->get('button_continue');
@@ -381,6 +397,11 @@ class ControllerAccountAddress extends Controller {
 			$data['error_district'] = $this->error['district'];
 		} else {
 			$data['error_district'] = '';
+		}
+		if (isset($this->error['subdistrict'])) {
+			$data['error_subdistrict'] = $this->error['subdistrict'];
+		} else {
+			$data['error_subdistrict'] = '';
 		}
 		//-----
 		if (isset($this->error['custom_field'])) {
@@ -485,7 +506,6 @@ class ControllerAccountAddress extends Controller {
 		} else {
 			$data['subdistrict_id'] = '';
 		}
-
 		//------
 		$this->load->model('localisation/country');
 

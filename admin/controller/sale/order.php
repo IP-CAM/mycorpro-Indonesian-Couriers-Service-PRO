@@ -415,6 +415,7 @@ class ControllerSaleOrder extends Controller {
 		$data['entry_postcode'] = $this->language->get('entry_postcode');
 		$data['entry_zone'] = $this->language->get('entry_zone');
 		$data['entry_district'] = $this->language->get('entry_district');//frd
+		$data['entry_subdistrict'] = $this->language->get('entry_subdistrict');//frd
 		$data['entry_zone_code'] = $this->language->get('entry_zone_code');
 		$data['entry_country'] = $this->language->get('entry_country');
 		$data['entry_product'] = $this->language->get('entry_product');
@@ -540,8 +541,8 @@ class ControllerSaleOrder extends Controller {
 			$data['addresses'] = $this->model_customer_customer->getAddresses($order_info['customer_id']);
 			/*$data['addresses'][17]['district_id']='154';
 			$data['addresses'][11]['district_id']='444';
-			print_r($data['addresses']);
 			*/
+			//print_r($order_info);
 			$data['payment_firstname'] = $order_info['payment_firstname'];
 			$data['payment_lastname'] = $order_info['payment_lastname'];
 			$data['payment_company'] = $order_info['payment_company'];
@@ -552,6 +553,7 @@ class ControllerSaleOrder extends Controller {
 			$data['payment_country_id'] = $order_info['payment_country_id'];
 			$data['payment_zone_id'] = $order_info['payment_zone_id'];
 			$data['payment_district_id'] = $order_info['payment_district_id']; //frd
+			$data['payment_subdistrict_id'] = $order_info['payment_subdistrict_id']; //frd
 			$data['payment_custom_field'] = $order_info['payment_custom_field'];
 			$data['payment_method'] = $order_info['payment_method'];
 			$data['payment_code'] = $order_info['payment_code'];
@@ -566,6 +568,7 @@ class ControllerSaleOrder extends Controller {
 			$data['shipping_country_id'] = $order_info['shipping_country_id'];
 			$data['shipping_zone_id'] = $order_info['shipping_zone_id'];
 			$data['shipping_district_id'] = $order_info['shipping_district_id']; //frd
+			$data['shipping_subdistrict_id'] = $order_info['shipping_subdistrict_id']; //frd
 			$data['shipping_custom_field'] = $order_info['shipping_custom_field'];
 			$data['shipping_method'] = $order_info['shipping_method'];
 			$data['shipping_code'] = $order_info['shipping_code'];
@@ -641,6 +644,7 @@ class ControllerSaleOrder extends Controller {
 			$data['payment_country_id'] = '';
 			$data['payment_zone_id'] = '';
 			$data['payment_district_id'] = ''; //frd
+			$data['payment_subdistrict_id'] = ''; //frd
 			$data['payment_custom_field'] = array();
 			$data['payment_method'] = '';
 			$data['payment_code'] = '';
@@ -655,6 +659,7 @@ class ControllerSaleOrder extends Controller {
 			$data['shipping_country_id'] = '';
 			$data['shipping_zone_id'] = '';
 			$data['shipping_district_id'] = ''; //frd
+			$data['shipping_subdistrict_id'] = ''; //frd
 			$data['shipping_custom_field'] = array();
 			$data['shipping_method'] = '';
 			$data['shipping_code'] = '';

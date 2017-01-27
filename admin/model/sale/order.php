@@ -117,7 +117,9 @@ class ModelSaleOrder extends Model {
 				'payment_zone_id'         => $order_query->row['payment_zone_id'],
 				'payment_zone'            => $order_query->row['payment_zone'],
 				'payment_district_id'     => $order_query->row['payment_district_id'], //frd
-				'payment_district'        => $order_query->row['payment_district'], //frd
+				'payment_district'        => $order_query->row['payment_district'],//frd
+				'payment_subdistrict_id'  => $order_query->row['payment_subdistrict_id'], //frd
+				'payment_subdistrict'     => $order_query->row['payment_subdistrict'], //frd
 				'payment_zone_code'       => $payment_zone_code,
 				'payment_country_id'      => $order_query->row['payment_country_id'],
 				'payment_country'         => $order_query->row['payment_country'],
@@ -138,6 +140,8 @@ class ModelSaleOrder extends Model {
 				'shipping_zone'           => $order_query->row['shipping_zone'],
 				'shipping_district_id'    => $order_query->row['shipping_district_id'], //frd
 				'shipping_district'       => $order_query->row['shipping_district'],//frd
+				'shipping_subdistrict_id' => $order_query->row['shipping_subdistrict_id'], //frd
+				'shipping_subdistrict'    => $order_query->row['shipping_subdistrict'],//frd
 				'shipping_zone_code'      => $shipping_zone_code,
 				'shipping_country_id'     => $order_query->row['shipping_country_id'],
 				'shipping_country'        => $order_query->row['shipping_country'],

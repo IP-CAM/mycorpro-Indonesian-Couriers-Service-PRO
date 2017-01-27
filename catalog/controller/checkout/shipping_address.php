@@ -145,6 +145,7 @@ class ControllerCheckoutShippingAddress extends Controller {
 					} else {
 						$this->session->data['shipping_address']['district'] = '';
 					}
+
 					$this->load->model('localisation/subdistrictpro');
 					$subdistrict = $this->model_localisation_subdistrictpro->getSubdistrict($this->session->data['shipping_address']['subdistrict_id']);
 					if (isset($subdistrict['rajaongkir']['results']['subdistrict_name'])){

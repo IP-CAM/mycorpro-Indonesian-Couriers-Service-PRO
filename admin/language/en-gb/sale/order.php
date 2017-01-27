@@ -96,6 +96,7 @@ $_['entry_postcode']             = 'Postcode';
 $_['entry_country']              = 'Country';
 $_['entry_zone']                 = 'Region / State';
 $_['entry_district']           = 'District / City'; //frd
+$_['entry_subdistrict']           = 'Subdistrict'; //frd
 $_['entry_zone_code']            = 'Region / State Code';
 $_['entry_product']              = 'Choose Product';
 $_['entry_option']               = 'Choose Option(s)';

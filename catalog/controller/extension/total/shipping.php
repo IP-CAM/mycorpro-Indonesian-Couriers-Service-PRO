@@ -270,4 +270,55 @@ class ControllerExtensionTotalShipping extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+	//frd
+	public function zone() {
+		$json = array();
+
+		$this->load->model('localisation/zone');
+		$zone_info = $this->model_localisation_zone->getZone($this->request->get['zone_id']);
+		$json = array();
+		if ($zone_info) {
+			$this->load->model('localisation/districtpro');
+			if (!empty($zone_info['raoprop_id'])) {
+				$json = array(
+					'zone_id'       => $zone_info['country_id'],
+					'name'          => $zone_info['name'],
+					'code'        	=> $zone_info['code'],
+					'raoprop_id'    => $zone_info['raoprop_id'],
+					'raoprop'       => $this->model_localisation_districtpro->getDistricts($zone_info['raoprop_id']),
+				);
+
+			}
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	public function district() {
+		$json = array();
+		if (trim($this->request->get['district_id']) <> '' ) {
+			$this->load->model('localisation/districtpro');
+			$district = $this->model_localisation_districtpro->getDistrict($this->request->get['district_id']);
+			$json = array();
+			if (!empty($district['rajaongkir']['results'])) {
+				$this->load->model('localisation/subdistrictpro');
+					$json = array(
+						'city_id'      => $district['rajaongkir']['results']['city_id'],
+						'province_id'  => $district['rajaongkir']['results']['province_id'],
+						'province'     => $district['rajaongkir']['results']['province'],
+						'type'         => $district['rajaongkir']['results']['type'],
+						'city_name'    => $district['rajaongkir']['results']['city_name'],
+						'postal_code'  => $district['rajaongkir']['results']['postal_code'],
+						'subdistricts' => $this->model_localisation_subdistrictpro->getSubdistricts($district['rajaongkir']['results']['city_id']),
+					);
+
+			}
+		}
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	//
+
 }

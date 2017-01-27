@@ -118,7 +118,7 @@ class ControllerApiPayment extends Controller {
 					'zone_id'        => $this->request->post['zone_id'],
 					'zone'           => $zone,
 					'district_id'    => $this->request->post['district_id'], //frd
-					'subdistrict_id'    => $this->request->post['subdistrict_id'], //frd
+					'subdistrict_id' => $this->request->post['subdistrict_id'], //frd
 					'zone_code'      => $zone_code,
 					'country_id'     => $this->request->post['country_id'],
 					'country'        => $country,

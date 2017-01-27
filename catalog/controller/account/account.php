@@ -150,12 +150,9 @@ class ControllerAccountAccount extends Controller {
 		if (trim($this->request->get['district_id']) <> '' ) {
 			$this->load->model('localisation/districtpro');
 			$district = $this->model_localisation_districtpro->getDistrict($this->request->get['district_id']);
-			//print_r($district);
 			$json = array();
 			if (!empty($district['rajaongkir']['results'])) {
 				$this->load->model('localisation/subdistrictpro');
-					//$xx = $this->model_localisation_subdistrictpro->getSubdistricts($district['rajaongkir']['results']['city_id']);
-					//print_r($xx);
 					$json = array(
 						'city_id'      => $district['rajaongkir']['results']['city_id'],
 						'province_id'  => $district['rajaongkir']['results']['province_id'],

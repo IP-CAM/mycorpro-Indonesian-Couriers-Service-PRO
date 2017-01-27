@@ -493,6 +493,19 @@
                   </select>
                 </div>
               </div>
+              <div class="form-group required">
+                <label class="col-sm-2 control-label" for="input-payment-subdistrict"><?php echo $entry_subdistrict; ?></label>
+                <div class="col-sm-10">
+                  <select name="subdistrict_id" id="input-payment-subdistrict" class="form-control">
+                    <!--frd-->
+                    <?php if (!empty($payment_subdistrict_id)) {?>
+                    <option value="<?php echo $payment_subdistrict_id; ?>"></option>
+                    <?php } ?>
+                    <!---->
+                  </select>
+                </div>
+              </div>
+
               <!------>
 
               <?php foreach ($custom_fields as $custom_field) { ?>
@@ -716,9 +729,23 @@
                 <label class="col-sm-2 control-label" for="input-shipping-district"><?php echo $entry_district; ?></label>
                 <div class="col-sm-10">
                   <select name="district_id" id="input-shipping-district" class="form-control">
+                    <!--frd-->
+                    <?php if (!empty($shipping_district_id)) {?>
+                    <option value="<?php echo $shipping_district_id; ?>"></option>
+                    <?php } ?>
+                    <!---->
+
                   </select>
                 </div>
               </div>
+              <div class="form-group required">
+                <label class="col-sm-2 control-label" for="input-shipping-subdistrict"><?php echo $entry_subdistrict; ?></label>
+                <div class="col-sm-10">
+                  <select name="subdistrict_id" id="input-shipping-subdistrict" class="form-control">
+                  </select>
+                </div>
+              </div>
+
               <!------>
               <?php foreach ($custom_fields as $custom_field) { ?>
               <?php if ($custom_field['location'] == 'address') { ?>
@@ -2634,6 +2661,42 @@ $('#tab-payment select[name=\'zone_id\']').on('change', function() {
 
 $('#tab-payment select[name=\'zone_id\']').trigger('change');
 
+/*--*/
+$('#tab-payment select[name=\'district_id\']').on('change', function() {
+	$.ajax({
+    url: 'index.php?route=localisation/country/district&token=<?php echo $token; ?>&district_id=' + this.value,
+		dataType: 'json',
+		beforeSend: function() {
+		},
+		complete: function() {
+			$('#tab-payment .fa-spin').remove();
+		},
+		success: function(json) {
+
+      html = '<option value=""><?php echo $text_select; ?></option>';
+
+      if (json['subdistricts'] && json['subdistricts']['rajaongkir']['results'] != '') {
+        for (i = 0; i < json['subdistricts']['rajaongkir']['results'].length; i++) {
+          html += '<option value="' + json['subdistricts']['rajaongkir']['results'][i]['subdistrict_id'] + '"';
+          if (json['subdistricts']['rajaongkir']['results'][i]['subdistrict_id'] == '<?php echo $subdistrict_id; ?>') {
+            html += ' selected="selected"';
+          }
+          html += '>' + json['subdistricts']['rajaongkir']['results'][i]['subdistrict_name'] +  '</option>';
+        }
+      } else {
+        /*html += '<option value="0" selected="selected"><?php echo $text_none; ?></option>';*/
+      }
+			$('#tab-payment select[name=\'subdistrict_id\']').html(html);
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+
+	});
+});
+
+$('#tab-payment select[name=\'district_id\']').trigger('change');
+/*---*/
 //--></script>
 
 <!--frd-->
@@ -2676,7 +2739,43 @@ $('#tab-shipping select[name=\'zone_id\']').on('change', function() {
 });
 
 $('#tab-shipping select[name=\'zone_id\']').trigger('change');
+/*--*/
+$('#tab-shipping select[name=\'district_id\']').on('change', function() {
+	$.ajax({
+    url: 'index.php?route=localisation/country/district&token=<?php echo $token; ?>&district_id=' + this.value,
+		dataType: 'json',
+		beforeSend: function() {
+		},
+		complete: function() {
+			$('#tab-shipping .fa-spin').remove();
+		},
+		success: function(json) {
 
+      html = '<option value=""><?php echo $text_select; ?></option>';
+      if (json['subdistricts'] && json['subdistricts']['rajaongkir']['results'] != '') {
+        for (i = 0; i < json['subdistricts']['rajaongkir']['results'].length; i++) {
+          html += '<option value="' + json['subdistricts']['rajaongkir']['results'][i]['subdistrict_id'] + '"';
+          if (json['subdistricts']['rajaongkir']['results'][i]['subdistrict_id'] == '<?php echo $subdistrict_id; ?>') {
+            html += ' selected="selected"';
+          }
+          html += '>' + json['subdistricts']['rajaongkir']['results'][i]['subdistrict_name'] +  '</option>';
+        }
+      } else {
+        /*html += '<option value="0" selected="selected"><?php echo $text_none; ?></option>';*/
+      }
+
+			$('#tab-shipping select[name=\'subdistrict_id\']').html(html);
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+
+	});
+});
+
+$('#tab-shipping select[name=\'district_id\']').trigger('change');
+
+/*---*/
 //--></script>
 
 </div>

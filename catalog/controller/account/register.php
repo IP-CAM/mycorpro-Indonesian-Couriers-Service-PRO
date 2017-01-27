@@ -86,6 +86,7 @@ class ControllerAccountRegister extends Controller {
 		$data['entry_country'] = $this->language->get('entry_country');
 		$data['entry_zone'] = $this->language->get('entry_zone');
 		$data['entry_district'] = $this->language->get('entry_district');//frd
+		$data['entry_subdistrict'] = $this->language->get('entry_subdistrict');//frd
 		$data['entry_newsletter'] = $this->language->get('entry_newsletter');
 		$data['entry_password'] = $this->language->get('entry_password');
 		$data['entry_confirm'] = $this->language->get('entry_confirm');
@@ -157,6 +158,11 @@ class ControllerAccountRegister extends Controller {
 			$data['error_district'] = $this->error['district'];
 		} else {
 			$data['error_district'] = '';
+		}
+		if (isset($this->error['subdistrict'])) {
+			$data['error_subdistrict'] = $this->error['subdistrict'];
+		} else {
+			$data['error_subdistrict'] = '';
 		}
 		//-----
 
@@ -285,7 +291,7 @@ class ControllerAccountRegister extends Controller {
 		} else {
 			$data['district_id'] = '';
 		}
-		
+
 		if (isset($this->request->post['subdistrict_id'])) {
 			$data['subdistrict_id'] = (int)$this->request->post['subdistrict_id'];
 		} elseif (isset($this->session->data['shipping_address']['subdistrict_id'])) {
