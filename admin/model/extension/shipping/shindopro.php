@@ -1,11 +1,18 @@
 <?php
 class ModelExtensionShippingShindopro extends Model {
 	public function install() {
-		$this->db->query("ALTER TABLE `" . DB_PREFIX . "order` ADD `payment_district_id` INT(11) NULL DEFAULT NULL,
+		$this->db->query("ALTER TABLE `" . DB_PREFIX . "order`
+		ADD `payment_district_id` INT(11) NULL DEFAULT NULL,
 		ADD `shipping_district_id` INT(11) NULL DEFAULT NULL,
+		ADD `payment_subdistrict_id` INT(11) NULL DEFAULT NULL,
+		ADD `shipping_subdistrict_id` INT(11) NULL DEFAULT NULL,
 		ADD `payment_district` VARCHAR(128) NULL DEFAULT NULL,
-		ADD `shipping_district` VARCHAR(128) NULL DEFAULT NULL");
-		$this->db->query("ALTER TABLE " . DB_PREFIX . "address ADD COLUMN district_id INT(11) NULL");
+		ADD `shipping_district` VARCHAR(128) NULL DEFAULT NULL,
+		ADD `payment_subdistrict` VARCHAR(128) NULL DEFAULT NULL,
+		ADD `shipping_subdistrict` VARCHAR(128) NULL DEFAULT NULL");
+		$this->db->query("ALTER TABLE " . DB_PREFIX . "address
+		ADD COLUMN district_id INT(11) NULL,
+		ADD COLUMN subdistrict_id INT(11) NULL");
 		$this->db->query("ALTER TABLE " . DB_PREFIX . "zone ADD COLUMN raoprop_id INT(11) NULL");
 
 		$this->db->query("UPDATE " . DB_PREFIX . "zone SET name = 'Nusa Tenggara Barat (NTB)' WHERE name = 'Nusa Tenggara Barat'");
