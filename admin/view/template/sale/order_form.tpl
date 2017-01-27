@@ -2678,7 +2678,7 @@ $('#tab-payment select[name=\'district_id\']').on('change', function() {
       if (json['subdistricts'] && json['subdistricts']['rajaongkir']['results'] != '') {
         for (i = 0; i < json['subdistricts']['rajaongkir']['results'].length; i++) {
           html += '<option value="' + json['subdistricts']['rajaongkir']['results'][i]['subdistrict_id'] + '"';
-          if (json['subdistricts']['rajaongkir']['results'][i]['subdistrict_id'] == '<?php echo $subdistrict_id; ?>') {
+          if (json['subdistricts']['rajaongkir']['results'][i]['subdistrict_id'] == '<?php echo $payment_subdistrict_id; ?>') {
             html += ' selected="selected"';
           }
           html += '>' + json['subdistricts']['rajaongkir']['results'][i]['subdistrict_name'] +  '</option>';
@@ -2755,7 +2755,7 @@ $('#tab-shipping select[name=\'district_id\']').on('change', function() {
       if (json['subdistricts'] && json['subdistricts']['rajaongkir']['results'] != '') {
         for (i = 0; i < json['subdistricts']['rajaongkir']['results'].length; i++) {
           html += '<option value="' + json['subdistricts']['rajaongkir']['results'][i]['subdistrict_id'] + '"';
-          if (json['subdistricts']['rajaongkir']['results'][i]['subdistrict_id'] == '<?php echo $subdistrict_id; ?>') {
+          if (json['subdistricts']['rajaongkir']['results'][i]['subdistrict_id'] == '<?php echo $shipping_subdistrict_id; ?>') {
             html += ' selected="selected"';
           }
           html += '>' + json['subdistricts']['rajaongkir']['results'][i]['subdistrict_name'] +  '</option>';
