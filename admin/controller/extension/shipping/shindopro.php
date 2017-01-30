@@ -53,6 +53,7 @@ class ControllerExtensionShippingShindopro extends Controller {
 
 		$data['entry_sort_order'] = $this->language->get('entry_sort_order');
 		$data['help_rate'] = $this->language->get('help_rate');
+		$data['help_weight_class'] = $this->language->get('help_weight_class');
 
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');

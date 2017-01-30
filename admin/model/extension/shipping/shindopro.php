@@ -61,8 +61,13 @@ class ModelExtensionShippingShindopro extends Model {
 		$this->db->query("ALTER TABLE `" . DB_PREFIX . "order` DROP `payment_district_id`,
 		DROP `shipping_district_id`,
 		DROP `payment_district`,
-		DROP `shipping_district`");
-		$this->db->query("ALTER TABLE " . DB_PREFIX . "address DROP district_id");
+		DROP `shipping_district`,
+		DROP `payment_subdistrict_id`,
+		DROP `shipping_subdistrict_id`,
+		DROP `payment_subdistrict`,
+		DROP `shipping_subdistrict`");
+
+		$this->db->query("ALTER TABLE " . DB_PREFIX . "address DROP district_id, DROP subdistrict_id");
 		$this->db->query("ALTER TABLE " . DB_PREFIX . "zone DROP raoprop_id");
 		$this->db->query("UPDATE " . DB_PREFIX . "zone SET name = 'Nusa Tenggara Barat' WHERE name = 'Nusa Tenggara Barat (NTB)'");
 		$this->db->query("UPDATE " . DB_PREFIX . "zone SET name = 'Nusa Tenggara Timur' WHERE name = 'Nusa Tenggara Timur (NTT)'");
@@ -71,9 +76,11 @@ class ModelExtensionShippingShindopro extends Model {
 		$this->db->query("UPDATE " . DB_PREFIX . "zone SET name = 'Aceh' WHERE name = 'Nanggroe Aceh Darussalam (NAD)'");
 		$this->db->query("UPDATE " . DB_PREFIX . "zone SET name = 'Yogyakarta' WHERE name = 'DI Yogyakarta'");
 
-		$this->db->query("DELETE FROM " . DB_PREFIX . "setting WHERE `code` = 'igsjne'");
-		$this->db->query("DELETE FROM " . DB_PREFIX . "setting WHERE `code` = 'igstiki'");
-		$this->db->query("DELETE FROM " . DB_PREFIX . "setting WHERE `code` = 'igspos'");
+		$this->db->query("DELETE FROM " . DB_PREFIX . "setting WHERE `code` = 'igsjnepro'");
+		$this->db->query("DELETE FROM " . DB_PREFIX . "setting WHERE `code` = 'igstikipro'");
+		$this->db->query("DELETE FROM " . DB_PREFIX . "setting WHERE `code` = 'igspospro'");
+		$this->db->query("DELETE FROM " . DB_PREFIX . "setting WHERE `code` = 'igsjntpro'");
+		$this->db->query("DELETE FROM " . DB_PREFIX . "setting WHERE `code` = 'igswahanapro'");
 
 		$this->load->model('extension/extension');
 		$this->model_extension_extension->uninstall('shipping', $this->request->get['extension']);
