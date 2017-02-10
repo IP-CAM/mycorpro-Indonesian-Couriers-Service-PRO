@@ -250,11 +250,13 @@ class ControllerCheckoutGuest extends Controller {
 				$json['error']['zone'] = $this->language->get('error_zone');
 			}
 			//frd
-			if (!isset($this->request->post['district_id']) || $this->request->post['district_id'] == '' || !is_numeric($this->request->post['district_id'])) {
-				$json['error']['district'] = $this->language->get('error_district');
-			}
-			if (!isset($this->request->post['subdistrict_id']) || $this->request->post['subdistrict_id'] == '' || !is_numeric($this->request->post['subdistrict_id'])) {
-				$json['error']['subdistrict'] = $this->language->get('error_subdistrict');
+			if ($this->request->post['country_id'] == 100) {
+				if (!isset($this->request->post['district_id']) || $this->request->post['district_id'] == '' || !is_numeric($this->request->post['district_id'])) {
+					$json['error']['district'] = $this->language->get('error_district');
+				}
+				if (!isset($this->request->post['subdistrict_id']) || $this->request->post['subdistrict_id'] == '' || !is_numeric($this->request->post['subdistrict_id'])) {
+					$json['error']['subdistrict'] = $this->language->get('error_subdistrict');
+				}
 			}
 			//------
 			// Customer Group

@@ -47,7 +47,7 @@
             <?php } ?>-->
           </div>
         </div>
-        <div class="form-group required">
+        <div class="form-group">
           <label class="col-sm-2 control-label" for="input-subdistrict"><?php echo $entry_subdistrict; ?></label>
           <div class="col-sm-10">
             <select name="subdistrict_id" id="input-subdistrict" class="form-control">

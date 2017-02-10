@@ -211,7 +211,7 @@
         <div class="text-danger"><?php echo $error_district; ?></div>
           <?php } ?>-->
       </div>
-      <div class="form-group required">
+      <div class="form-group">
         <label class="control-label" for="input-payment-zone"><?php echo $entry_subdistrict; ?></label>
         <select name="subdistrict_id" id="input-payment-subdistrict" class="form-control">
         </select>

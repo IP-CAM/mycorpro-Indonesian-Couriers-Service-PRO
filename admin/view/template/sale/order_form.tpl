@@ -493,7 +493,7 @@
                   </select>
                 </div>
               </div>
-              <div class="form-group required">
+              <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-payment-subdistrict"><?php echo $entry_subdistrict; ?></label>
                 <div class="col-sm-10">
                   <select name="subdistrict_id" id="input-payment-subdistrict" class="form-control">
@@ -738,7 +738,7 @@
                   </select>
                 </div>
               </div>
-              <div class="form-group required">
+              <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-shipping-subdistrict"><?php echo $entry_subdistrict; ?></label>
                 <div class="col-sm-10">
                   <select name="subdistrict_id" id="input-shipping-subdistrict" class="form-control">
